@@ -84,8 +84,9 @@ import com.android.systemui.util.time.SystemClock;
 import com.android.systemui.util.time.SystemClockImpl;
 import com.android.systemui.wallet.dagger.WalletModule;
 import com.android.systemui.wmshell.BubblesManager;
-import com.android.systemui.R;
 import com.android.wm.shell.bubbles.Bubbles;
+
+import org.protonaosp.systemui.PixelUdfpsHbmProvider;
 
 import java.util.Optional;
 import java.util.concurrent.Executor;
@@ -178,17 +179,12 @@ public abstract class SystemUIModule {
     @BindsOptionalOf
     abstract StatusBar optionalStatusBar();
 
-    @Provides
-    static UdfpsHbmProvider getUdfpsHbmProvider(Context context) {
-        String className = context.getString(R.string.config_udfpsHbmProviderComponent);
-        try {
-            Class<?> clazz = context.getClassLoader().loadClass(className);
-            return (UdfpsHbmProvider) clazz.getDeclaredConstructor(
-                    new Class[] { Context.class }).newInstance(context);
-        } catch (Throwable t) {
-            throw new RuntimeException("Error loading UdfpsHbmProvider " + className, t);
-        }
-    }
+    @BindsOptionalOf
+    abstract UdfpsHbmProvider optionalUdfpsHbmProvider();
+
+    @SysUISingleton
+    @Binds
+    abstract UdfpsHbmProvider bindUdfpsHbmProvider(PixelUdfpsHbmProvider provider);
 
     @SysUISingleton
     @Binds

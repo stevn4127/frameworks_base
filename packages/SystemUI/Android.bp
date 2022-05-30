@@ -131,6 +131,7 @@ android_library {
         "AicpGear-preference",
         "AicpGear-util",
         "vendor.lineage.powershare-V1.0-java",
+        "//hardware/google/interfaces:com.google.hardware.pixel.display-V3-java",
     ],
     manifest: "AndroidManifest.xml",
     additional_manifests: ["AndroidManifest-Aicp.xml"],
